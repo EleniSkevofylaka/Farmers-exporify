@@ -8,12 +8,13 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/inquiries', { name, email, message })
+    axios.post('http://localhost:3000/api/inquiries', { name, email, message })
       .then(() => {
         alert('Inquiry submitted successfully!');
       })
       .catch((error) => {
-        alert('Failed to submit inquiry.');
+        alert(`Failed to submit inquiry: ${error.response ? error.response.data : error.message}`);
+
         console.error('Error submitting inquiry:', error);
       });
   };

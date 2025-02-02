@@ -1,12 +1,36 @@
+const cors = require("cors");
 require('dotenv').config();
 const express = require("express");
 
 const app = express();
 const pool = require("./db");
 
+app.use(cors({
+  origin: "http://localhost:3001"  // Allow frontend running on port 3001
+}));
 app.use(express.json());
 
-app.get('/', (req, res) => res.send('Server is running!!!'));
+/*app.get('/', (req, res) => res.send('Server is running!!!'));*/
+app.get('/api/company', async (req, res) => {
+  try {
+      const result = await pool.query('SELECT * FROM company_info LIMIT 1'); // Fetch only the first entry
+      res.json(result.rows[0]);  // Send the company info as a response
+  } catch (err) {
+      console.error('Error fetching company info:', err);
+      res.status(500).send('Error fetching company info');
+  }
+});
+
+app.get('/api/products', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM products');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('An error occurred while fetching products.');
+  }
+});
+
 
 // Contact Form Route
 
