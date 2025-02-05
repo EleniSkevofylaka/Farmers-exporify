@@ -14,26 +14,35 @@ const ContactPage = () => {
       })
       .catch((error) => {
         alert(`Failed to submit inquiry: ${error.response ? error.response.data : error.message}`);
-
         console.error('Error submitting inquiry:', error);
       });
   };
 
   return (
-    <div className="contact-page">
-      <h1>Contact Us</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-        
-        <label>Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        
-        <label>Message:</label>
-        <textarea value={message} onChange={(e) => setMessage(e.target.value)} required />
-        
-        <button type="submit">Submit Inquiry</button>
-      </form>
+    <div className="container py-5">
+      <h1 className="fw-bold text-success text-center mb-4">Contact Us</h1>
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <form onSubmit={handleSubmit} className="p-4 border rounded shadow bg-light">
+            <div className="mb-3">
+              <label className="form-label fw-bold">Name:</label>
+              <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} required />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label fw-bold">Email:</label>
+              <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label fw-bold">Message:</label>
+              <textarea className="form-control" rows="4" value={message} onChange={(e) => setMessage(e.target.value)} required></textarea>
+            </div>
+
+            <button type="submit" className="btn btn-success w-100">Submit Inquiry</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
